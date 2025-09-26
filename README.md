@@ -1,5 +1,7 @@
 # password-generator
 “Secure Password Generator 🔐 | Quickly create strong, random passwords with adjustable length and one-click copy. Built with HTML, CSS &amp; JS for simplicity and security.”
+👉 Live Demo: (https://ashu-50.github.io/password-generator/)
+
 
 ## Features
 - Generate random, strong passwords
