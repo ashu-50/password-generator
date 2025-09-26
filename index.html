@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Password Generator</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS for utility classes -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to your external stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="absolute top-4 right-4">
+        <button id="theme-toggle" class="p-2 rounded-full text-slate-400 hover:text-white transition-colors" title="Toggle theme">
+            <!-- Moon Icon -->
+            <svg id="theme-icon-dark" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            <!-- Sun Icon -->
+            <svg id="theme-icon-light" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </button>
+    </div>
+    <main class="main-container w-full max-w-md mx-auto">
+        <h1 class="text-4xl text-center font-extrabold mb-2 leading-tight">Generate a<br><span class="text-emerald-400">random password</span></h1>
+        <p class="text-lg text-center mb-6">Never use an insecure password again.</p>
+
+        <!-- Password Display -->
+        <div class="card relative rounded-lg p-4 flex items-center justify-between mb-4 shadow-lg">
+            <span id="password-display" class="text-lg font-mono tracking-wider break-all pr-12 text-emerald-400">P@s$w0rd!</span>
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center">
+                 <span id="copy-tooltip" class="tooltip bg-emerald-500 text-slate-900 text-xs font-bold px-2 py-1 rounded-md -left-20">Copied!</span>
+                <button id="copy-button" class="p-2 rounded-md hover:bg-opacity-20 hover:bg-white transition-colors duration-200" title="Copy to clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-400"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Settings Container -->
+        <div class="card rounded-lg p-6 shadow-lg">
+            <!-- Secure Password Settings -->
+            <div id="secure-settings">
+                <div class="flex items-center justify-between mb-6">
+                    <label for="length" class="text-lg">Character Length</label>
+                    <span id="length-value" class="text-emerald-400 text-2xl font-bold">16</span>
+                </div>
+                <input type="range" id="length" min="6" max="32" value="16" class="w-full h-2 rounded-lg appearance-none cursor-pointer mb-6">
+                <div class="space-y-4">
+                    <label for="include-uppercase" class="flex items-center cursor-pointer w-full"><input type="checkbox" id="include-uppercase" class="sr-only toggle-checkbox" checked><div class="relative w-10 h-6 rounded-full transition-colors duration-200 ease-in-out toggle-label toggle-bg"><div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out toggle-dot"></div></div><span class="ml-3">Include Uppercase Letters</span></label>
+                    <label for="include-lowercase" class="flex items-center cursor-pointer w-full"><input type="checkbox" id="include-lowercase" class="sr-only toggle-checkbox" checked><div class="relative w-10 h-6 rounded-full transition-colors duration-200 ease-in-out toggle-label toggle-bg"><div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out toggle-dot"></div></div><span class="ml-3">Include Lowercase Letters</span></label>
+                    <label for="include-numbers" class="flex items-center cursor-pointer w-full"><input type="checkbox" id="include-numbers" class="sr-only toggle-checkbox" checked><div class="relative w-10 h-6 rounded-full transition-colors duration-200 ease-in-out toggle-label toggle-bg"><div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out toggle-dot"></div></div><span class="ml-3">Include Numbers</span></label>
+                    <label for="include-symbols" class="flex items-center cursor-pointer w-full"><input type="checkbox" id="include-symbols" class="sr-only toggle-checkbox" checked><div class="relative w-10 h-6 rounded-full transition-colors duration-200 ease-in-out toggle-label toggle-bg"><div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-200 ease-in-out toggle-dot"></div></div><span class="ml-3">Include Symbols</span></label>
+                </div>
+            </div>
+            
+            <!-- Divider and Strength -->
+            <div class="h-px my-6"></div>
+            <div class="strength-bg rounded-md p-3 flex items-center justify-between">
+                <span class="text-slate-400 font-medium">STRENGTH</span>
+                <div class="flex items-center space-x-2">
+                    <span id="strength-text" class="font-bold uppercase">MEDIUM</span>
+                    <div id="strength-bars" class="flex space-x-1"></div>
+                </div>
+            </div>
+            
+            <!-- Generate Button -->
+            <button id="generate-button" class="mt-6 w-full bg-emerald-500 text-slate-900 font-bold py-4 rounded-lg hover:bg-emerald-400 active:scale-95 transition-all duration-200 flex items-center justify-center">
+                Generate passwords
+            </button>
+        </div>
+
+        <!-- Password History -->
+        <div id="history-container" class="card rounded-lg p-6 shadow-lg mt-6 hidden">
+             <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold">History</h2>
+                <button id="clear-history-btn" class="text-sm text-slate-400 hover:text-white transition-colors">Clear</button>
+             </div>
+             <ul id="history-list" class="space-y-2"></ul>
+        </div>
+    </main>
+    
+    <!-- Link to your external script file -->
+    <script src="script.js"></script>
+</body>
+</html>
+
