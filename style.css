@@ -1,0 +1,141 @@
+
+:root {
+    --bg-color: #0f172a; 
+    --card-color: #1e293b; 
+    --text-color: #f8fafc; 
+    --subtle-text-color: #94a3b8; 
+    --accent-color: #34d399; 
+    --accent-hover-color: #6ee7b7; 
+    --slider-track-color: #334155; 
+    --strength-bar-border: #94a3b8; 
+    --toggle-bg-color: rgba(51, 65, 85, 0.5); 
+    --strength-bg-color: rgba(15, 23, 42, 0.5); 
+    --history-item-bg-color: rgba(15, 23, 42, 0.5); 
+    --theme-toggle-hover-bg: #334155; 
+    --divider-color: rgba(51, 65, 85, 0.5); 
+    --track-fill-percent: 50%;
+}
+
+body.light-theme {
+    --bg-color: #f1f5f9;
+    --card-color: #ffffff;
+    --text-color: #0f172a; 
+    --subtle-text-color: #475569; 
+    --slider-track-color: #e2e8f0; 
+    --strength-bar-border: #cbd5e1; 
+    --toggle-bg-color: #e2e8f0;
+    --strength-bg-color: #f1f5f9; 
+    --history-item-bg-color: #f1f5f9;
+    --theme-toggle-hover-bg: #e2e8f0; 
+    --divider-color: #e2e8f0; 
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease-in-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+.main-container, .history-item {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom styling for the range slider */
+input[type="range"] {
+    background: linear-gradient(to right, var(--accent-color) 0%, var(--accent-color) var(--track-fill-percent), var(--slider-track-color) var(--track-fill-percent), var(--slider-track-color) 100%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 24px; 
+    height: 24px;
+    background: var(--accent-color);
+    border-radius: 9999px; 
+    cursor: pointer;
+    margin-top: -8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: var(--accent-hover-color);
+}
+
+/* Custom styling for toggle switches */
+.toggle-checkbox:checked ~ .toggle-label { background-color: var(--accent-color); }
+.toggle-checkbox:checked ~ .toggle-label .toggle-dot { transform: translateX(100%); }
+
+/* Tooltip styles */
+.tooltip {
+    position: absolute; 
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    transform: translateX(10px);
+    pointer-events: none;
+}
+.tooltip.visible { 
+    opacity: 1; 
+    transform: translateX(0); 
+}
+
+/* Strength bar transition */
+#strength-bars > div { 
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; 
+}
+#strength-bars > div.active { 
+    transform: scaleY(1.1); 
+}
+
+/* Themed elements */
+.card { 
+    background-color: var(--card-color); 
+    color: var(--text-color); 
+}
+h1, h2, label, span:not(.text-slate-400):not(.text-emerald-400):not(.text-slate-900) { 
+    color: var(--text-color); 
+}
+p, .text-slate-400 { 
+    color: var(--subtle-text-color); 
+}
+.toggle-bg {
+    background-color: var(--toggle-bg-color);
+}
+.strength-bg {
+    background-color: var(--strength-bg-color);
+}
+.history-item {
+    background-color: var(--history-item-bg-color);
+}
+.h-px { /* Divider line */
+    background-color: var(--divider-color);
+}
+#theme-toggle:hover {
+    background-color: var(--theme-toggle-hover-bg);
+}
+
+/* History container animation */
+#history-container {
+    max-height: 500px;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+#history-container.hidden {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
